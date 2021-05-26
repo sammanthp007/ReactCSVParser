@@ -1,4 +1,5 @@
 import React from 'react';
+import Papa from 'papaparse'
 
 class FileInput extends React.Component {
   // MARK: - Lifecycle Methods
@@ -6,6 +7,9 @@ class FileInput extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      data: []
+    }
     this.fileinputRef = React.createRef();
   }
 
@@ -28,8 +32,21 @@ class FileInput extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
+    const file = this.fileinputRef.current.files[0]
+    // 1. Use a CSV file handler to take in the file
+    Papa.parse(file, {
+      complete: this.createModels
+    });
+  }
+
+  createModels = (result) => {
+    // 2. Create a model from the file and Display the model in json format on screen
+    this.setState({
+      data: result.data
+    })
+
     alert(
-      "Submitted file:" + this.fileinputRef.current.files[0].name
+      result.data[0]
     )
   }
 }
