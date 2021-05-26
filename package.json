@@ -1,5 +1,5 @@
 {
-  "name": "uploader",
+  "name": "ReactFileUploaderToFirestore",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
